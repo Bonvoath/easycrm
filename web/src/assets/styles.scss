@@ -1,0 +1,157 @@
+.font-moul{
+    font-family: 'Moul', 'Open Sans', sans-serif !important;
+}
+.font-kulen{
+    font-family: 'Koulen', 'Open Sans', sans-serif !important;
+}
+.font-bat {
+    font-family: 'Battambang', 'Open Sans', sans-serif !important;
+}
+body{
+    font-family: 'Battambang', 'Open Sans', sans-serif !important;;
+    font-size: 15px;
+}
+.main-header {
+    position: fixed;
+    background: #fff;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    transition: all 500ms ease;
+    box-shadow: 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2);
+}
+
+.main-header .logo-outer {
+    position: relative;
+    z-index: 25;
+    padding: 8px 0px;
+}
+
+.main-header .upper-right {
+    position: relative;
+    z-index: 25;
+    padding: 38px 0px;
+}
+
+.float-right {
+    float: right !important;
+}
+
+.nav-cus .nav-link{
+    color: #0856ab !important;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+.nav-cus .nav-link:hover,
+.nav-cus .router-link-exact-active{
+    color: #94c13d !important;
+}
+.form-group{
+    margin-bottom: 3px;
+}
+.form-control:focus{
+    box-shadow: none;
+}
+.breadcrumb-item{
+    color: #28a745 !important;
+    text-transform: uppercase !important;
+}
+
+.breadcrumb-item::before{
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.form-control.kh,
+.form-control.font-bat{
+    font-size: 13px;
+}
+
+button:focus{
+    outline: none;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+    width: 3px;
+}
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background:#0856ab;
+}
+
+.breadcrumb{
+    background: #fff;
+    border-radius: 0;
+    margin: 0;
+    border-bottom: none;
+}
+.content{
+    background: #f2f2f2;
+    margin: 5px;
+}
+.card-x{
+    border-radius: 0;
+}
+
+.card-list .card-header{
+    border-radius: 0;
+    background: #fff;
+    border-bottom: none;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.card-list .card-body{
+    padding: 0;
+}
+.card-list .card-body .table{
+    margin: 0;
+}
+.card-form,.card-list{
+    border-radius: 0;
+    margin-bottom: 0;
+}
+.card-form .card-header{
+    border-radius: 0;
+    background: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.toolbar .btn{
+    box-shadow: none !important;
+    border-color: #ddd;
+    margin-right: 5px;
+}
+.table{
+    font-size: 13px;
+}
+.table.kh{
+    font-size: 14px;
+    line-height: 26px;;
+}
+.table-x thead tr th{
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.03) 100%);
+    border-bottom: 0;
+}
+.label-control{
+    margin-bottom: 2px;
+    font-weight: 500;
+}
+.label-control.kh{
+    font-size: 13px;
+    color: #0856ab;
+}
+.form-control:focus{
+    background: rgba(#0856ab, 0.1);
+}
+
+.text-middle{
+    vertical-align: middle !important;
+}
+
+.no-padding{
+    padding: 0;
+}
+
+.x-modal{
+    background: rgba(0, 0, 0, 0.3);
+}

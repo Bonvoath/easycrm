@@ -1,0 +1,23 @@
+export default {
+    activity_type: 'Activity Types',
+    contact: 'Contacts',
+    create: 'New',
+    email: 'Email',
+    home: 'Home',
+    lead: 'Leads',
+    lead_create: 'Create New Lead',
+    task: 'Tasks',
+    tag: 'Tags',
+    activity: 'Activities',
+    user_name: 'Username',
+    password: 'Password',
+    pipeline: 'Pipelines',
+    sign_in: 'Sign In',
+    stage: 'Stages',
+    login_header: 'Sign In',
+    company: 'Company Info',
+    save: 'Save',
+    new: 'New',
+    company_name: 'Name',
+    company_type: 'Type'
+}

@@ -1,0 +1,91 @@
+<template>
+    <div>
+        <div style="background: #fff;">
+            <div class="pull-left">
+                <nav aria-label="breadcrumb breadcrumb-cus ">
+                    <ol class="breadcrumb font-kulen">
+                        <li class="breadcrumb-item active" aria-current="page">{{$t('activity_type')}}</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="pull-right" style="padding: 10px 15px;">
+                <SearchBox :fields="['Name','Phone','Email', 'Contact']"></SearchBox>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="content">
+            <div class="card card-list">
+                <div class="card-header">
+                    <div class="toolbar">
+                        <button type="button" class="btn btn-outline-secondary btn-sm" @click="addNew"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{$t('create')}}</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"/></th>
+                                <th>Activity Type</th>
+                                <th>Description</th>
+                                <th>Sort</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <ModalSlot id="form" title="NEW ACTIVITY TYPE">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label for="" class="label-control kh">Name</label>
+                        <div>
+                            <input type="text" class="form-control form-control-sm" v-model="model.Name"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="" class="label-control kh">Sort</label>
+                        <div>
+                            <input type="number" class="form-control form-control-sm" v-model="model.Sort"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="label-control kh">Description</label>
+                <div>
+                    <textarea class="form-control form-control-sm" v-model="model.Description"></textarea>
+                </div>
+            </div>
+        </ModalSlot>
+    </div>
+</template>
+<script>
+    import $ from 'jquery'
+    import ModalSlot from '../Utils/Modal'
+    export default {
+        components: {
+            ModalSlot
+        },
+        data(){
+            return{
+                model: {
+
+                }
+            }
+        },
+        mounted(){
+            $('#form').modal({
+                backdrop:false,
+                show: false,
+            });
+        },
+        methods: {
+            addNew(){
+                $('#form').modal('show');
+            }
+        }
+    }
+</script>
