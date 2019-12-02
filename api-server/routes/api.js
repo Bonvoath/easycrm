@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/users');
+const tagController = require('../controllers/tags');
+const stageController = require('../controllers/stages');
+const activityController = require('../controllers/activities');
 const baseDir = require('path').join(__dirname,'../public/static/uploads/');
 const guid = require('uuid/v1');
 
@@ -33,4 +36,10 @@ router.post('/user', Authorize, userController.list);
 router.post('/user/register', Authorize, userController.register);
 router.post('/login', userController.login);
 router.get('/user/default', userController.default);
+router.post('/tag/list', tagController.list);
+router.post('/tag/save', tagController.save);
+router.post('/stage/list', stageController.list);
+router.post('/stage/save', stageController.save);
+router.post('/activity/type/list', activityController.type_list);
+router.post('/activity/type/save', activityController.type_save);
 module.exports = router;
