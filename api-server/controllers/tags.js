@@ -1,29 +1,50 @@
 const TagModel = require('../models/tag');
+const Response  = require('../utils/response');
 
-exports.list = (req, res, next) => {
-    TagModel.find({}).sort({ sort: 1 }).then((doc) => {
-        res.status(200).json(doc);
+exports.list = async(req, res, next) => {
+    let result = new Response();
+    await TagModel.find({}).sort({ sort: 1 }).then((docs) => {
+        result.success(docs);
     }).catch((err) => {
-        res.status(404).json(err);
+        result.addDetail(err);
     });
+
+    return res.status(200).json(result);
 }
 
-exports.save = (req, res, next) => {
+exports.save = async(req, res, next) => {
+    let result = new Response();
     let field = req.body;
-    TagModel.findOne({ name: field.name }).then(doc => {
+    await TagModel.findOne({ name: field.name }).then(doc => {
         if (doc) {
-            res.status(404).send('This tag name already registered.');
+            result.addDetail('This tag name already registered.');
         } else {
             let tag = new TagModel(field);
-            tag.save((err, result) => {
+            tag.save((err, doc) => {
                 if (err) {
-                    res.status(404).json(err);
+                    result.addDetail(err);
                 } else {
-                    res.status(200).json(result);
+                    result.success(doc);
                 }
             });
         }
     }).catch(err => {
-        res.status(404).json(err);
+        result.addDetail(err);
     });
+
+    return res.status(200).json(result);
+}
+
+exports.update = async(req, res) => {
+    let result = new Response();
+    let id = req.body._id;
+    let fields = req.body.fields;
+    await TagModel.findByIdAndUpdate(id, fields, { new: true }, (err, doc) => {
+        if(err) result.addDetail(err);
+        else{
+            result.success(doc);
+        }
+    });
+
+    return res.status(200).json(result);
 }
