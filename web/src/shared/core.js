@@ -31,23 +31,17 @@ export default {
                 token = CryptoJS.AES.decrypt(sessionStorage.getItem('jwt'),'jwtaccess').toString(CryptoJS.enc.Utf8);
             }
             return axios.create({
-                baseURL: 'http://203.223.44.122:8058/',
+                baseURL: 'http://localhost:4000/api/',
                 headers: { Authorization: 'Bearer ' +  token}
             });
         }
 
         Vue.prototype.$isValid = (res) => {
             let result = false;
-            if(res.data.StatusCode == 200){
+            if(res.status == 200){
                 result = true;
             }else{
-                if(res.data.Errors.length > 0){
-                    let message = '';
-                    res.data.Errors.map(item => {
-                        message += item.FieldName + ':' + item.Message + '<br/>';
-                    });
-                    Swal.fire('Error Message', message, 'error');
-                }
+                Swal.fire('Error Message', res, 'error');
             }
 
             return result;

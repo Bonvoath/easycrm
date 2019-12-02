@@ -31,11 +31,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="ret in list" :key="ret.Name">
-                                <td><input type="checkbox"/></td>
-                                <td>{{ret.Name}}</td>
-                                <td>{{ret.Description}}</td>
-                                <td>{{ret.Sort}}</td>
+                            <tr v-for="ret in list" :key="ret._id">
+                                <td style="width: 50px;"><input type="checkbox"/></td>
+                                <td>{{ret.name}}</td>
+                                <td>{{ret.description}}</td>
+                                <td>{{ret.sort}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -57,7 +57,7 @@
                                 <div class="form-group">
                                     <label for="" class="label-control kh">Name</label>
                                     <div>
-                                        <input type="text" class="form-control form-control-sm" v-model="model.Name"/>
+                                        <input type="text" class="form-control form-control-sm" v-model="model.name"/>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                                 <div class="form-group">
                                     <label for="" class="label-control kh">Sort</label>
                                     <div>
-                                        <input type="number" class="form-control form-control-sm" v-model="model.Sort"/>
+                                        <input type="number" class="form-control form-control-sm" v-model="model.sort"/>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                         <div class="form-group">
                             <label for="" class="label-control kh">Description</label>
                             <div>
-                                <textarea class="form-control form-control-sm" v-model="model.Description"></textarea>
+                                <textarea class="form-control form-control-sm" v-model="model.description"></textarea>
                             </div>
                         </div>
                     </div>
@@ -94,28 +94,43 @@
                 list: [],
                 model: {
                     title: 'ADD NEW TAG',
-                    Sort: 0,
-                    Name: '',
-                    Description: ''
+                    sort: 0,
+                    name: '',
+                    description: ''
                 }
             }
         },
         mounted(){
+            this.toList();
             $('#form').modal({
                 backdrop: false,
                 show: false
             });
         },
         methods: {
+            toList(){
+                let loading = this.$loading.show();
+                this.$api().post('tag/list').then(res => {
+                    if(this.$isValid(res)){
+                        this.list = res.data;
+                    }
+                }).finally(function(){ loading.hide(); });
+            },
             addNew(){
-                this.model.Sort = this.list.length;
-                this.model.Name = '';
-                this.model.Description = '';
+                this.model={
+                    name: '',
+                    description: '',
+                    sort: this.list.length
+                };
                 $('#form').modal('show');
             },
             save(){
-                this.list.push(JSON.parse(JSON.stringify(this.model)));
-                $('#form').modal('hide');
+                this.$api().post('tag/save', this.model).then(res => {
+                    if(this.$isValid(res)){
+                        this.toList();
+                        $('#form').modal('hide');
+                    }
+                });
             }
         }
     }

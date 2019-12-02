@@ -24,23 +24,31 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th><input type="checkbox"/></th>
+                                <th style="width: 50px;"><input type="checkbox"/></th>
                                 <th>Activity Type</th>
                                 <th>Description</th>
                                 <th>Sort</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr v-for="ret in list" :key="ret._id">
+                                <td><input type="checkbox"/></td>
+                                <td>{{ret.name}}</td>
+                                <td>{{ret.description}}</td>
+                                <td>{{ret.sort}}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <ModalSlot id="form" title="NEW ACTIVITY TYPE">
+        <ModalSlot id="form" title="NEW ACTIVITY TYPE" @save="save">
             <div class="row">
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label for="" class="label-control kh">Name</label>
                         <div>
-                            <input type="text" class="form-control form-control-sm" v-model="model.Name"/>
+                            <input type="text" class="form-control form-control-sm" v-model="model.name"/>
                         </div>
                     </div>
                 </div>
@@ -48,7 +56,7 @@
                     <div class="form-group">
                         <label for="" class="label-control kh">Sort</label>
                         <div>
-                            <input type="number" class="form-control form-control-sm" v-model="model.Sort"/>
+                            <input type="number" class="form-control form-control-sm" v-model="model.sort"/>
                         </div>
                     </div>
                 </div>
@@ -56,7 +64,7 @@
             <div class="form-group">
                 <label for="" class="label-control kh">Description</label>
                 <div>
-                    <textarea class="form-control form-control-sm" v-model="model.Description"></textarea>
+                    <textarea class="form-control form-control-sm" v-model="model.description"></textarea>
                 </div>
             </div>
         </ModalSlot>
@@ -71,20 +79,43 @@
         },
         data(){
             return{
+                list: [],
                 model: {
-
+                    name: '',
+                    description: '',
+                    sort: 0
                 }
             }
         },
         mounted(){
+            this.toList();
             $('#form').modal({
                 backdrop:false,
                 show: false,
             });
         },
         methods: {
+            toList(){
+                let loading = this.$loading.show();
+                this.$api().post('activity/type/list').then(res => {
+                    this.list = res.data;
+                }).finally(function(){ loading.hide(); });
+            },
             addNew(){
+                this.model={
+                    name: '',
+                    description: '',
+                    sort: this.list.length
+                };
                 $('#form').modal('show');
+            },
+            save(){
+                this.$api().post('activity/type/save', this.model).then(res => {
+                    if(this.$isValid(res)){
+                        this.toList();
+                        $('#form').modal('hide');
+                    }
+                });
             }
         }
     }

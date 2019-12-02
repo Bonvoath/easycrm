@@ -30,4 +30,4 @@ const activityTypeScheme = new mongoose.Schema({
         default: ''
     }
 });
-module.exports = mongoose.model('Stages', activityTypeScheme);
+module.exports = mongoose.model('ActivityTypes', activityTypeScheme);

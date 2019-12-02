@@ -14,7 +14,7 @@
                             <div class="form-group">
                                 <label for="" class="label-control kh">Name</label>
                                 <div>
-                                    <input type="text" class="form-control form-control-sm" v-model="model.Name"/>
+                                    <input type="text" class="form-control form-control-sm" v-model="model.name"/>
                                 </div>
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                             <div class="form-group">
                                 <label for="" class="label-control kh">Sort</label>
                                 <div>
-                                    <input type="number" class="form-control form-control-sm" v-model="model.Sort"/>
+                                    <input type="number" class="form-control form-control-sm" v-model="model.sort"/>
                                 </div>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label for="" class="label-control kh">Description</label>
                         <div>
-                            <textarea class="form-control form-control-sm" v-model="model.Description"></textarea>
+                            <textarea class="form-control form-control-sm" v-model="model.description"></textarea>
                         </div>
                     </div>
                 </div>
@@ -57,9 +57,9 @@
             return {
                 model: {
                     title: this.title,
-                    Sort: 0,
-                    Name: '',
-                    Description: ''
+                    sort: 0,
+                    name: '',
+                    description: ''
                 }
             }
         },

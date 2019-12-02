@@ -30,6 +30,14 @@
                                 <th>Sort</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr v-for="ret in list" :key="ret._id">
+                                <td><input type="checkbox"/></td>
+                                <td>{{ret.name}}</td>
+                                <td>{{ret.description}}</td>
+                                <td>{{ret.sort}}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -44,19 +52,48 @@
         components: {
             StageFormModal
         },
+        data(){
+            return {
+                list: [],
+                model: {
+                    title: 'ADD NEW TAG',
+                    sort: 0,
+                    name: '',
+                    description: ''
+                }
+            }
+        },
         mounted(){
+            this.toList();
             $('#form').modal({
                 backdrop: false,
                 show: false
             });
         },
         methods: {
+            toList(){
+                let loading = this.$loading.show();
+                this.$api().post('stage/list').then(res => {
+                    if(this.$isValid(res)){
+                        this.list = res.data;
+                    }
+                }).finally(function(){ loading.hide(); });
+            },
             addNew(){
+                this.model={
+                    name: '',
+                    description: '',
+                    sort: this.list.length
+                };
                 $('#form').modal('show');
             },
             save(e){
-                console.log(e);
-                $('#form').modal('hide');
+                this.$api().post('stage/save', e).then(res => {
+                    if(this.$isValid(res)){
+                        this.toList();
+                        $('#form').modal('hide');
+                    }
+                });
             }
         }
     }
