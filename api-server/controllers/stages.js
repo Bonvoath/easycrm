@@ -33,7 +33,7 @@ exports.update = async(req, res) => {
     let result = new Response();
     let id = req.body._id;
     let fields = req.body.fields;
-    await StageModel.findByIdAndUpdate(id, fields, { new: true }, (err, doc) => {
+    await StageModel.updateOne({ _id:id }, fields, { new: true }, (err, doc) => {
         if(err) result.addDetail(err);
         else{
             result.success(doc);

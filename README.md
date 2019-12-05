@@ -1,1 +1,1 @@
-# easycrm
+# Easy CRM

@@ -33,7 +33,7 @@
                         <tbody>
                             <tr v-for="ret in list" :key="ret._id">
                                 <td><input type="checkbox"/></td>
-                                <td>{{ret.name}}</td>
+                                <td><a href="javascript:void(0)" @click="update(ret)">{{ret.name}}</a></td>
                                 <td>{{ret.description}}</td>
                                 <td>{{ret.sort}}</td>
                             </tr>
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <ModalSlot id="form" title="NEW ACTIVITY TYPE" @save="save">
+        <ModalSlot id="form" :title="title" @save="save">
             <div class="row">
                 <div class="col-sm-8">
                     <div class="form-group">
@@ -79,6 +79,7 @@
         },
         data(){
             return{
+                title: 'NEW ACTIVITY TYPE',
                 list: [],
                 model: {
                     name: '',
@@ -107,6 +108,11 @@
                     description: '',
                     sort: this.list.length
                 };
+                $('#form').modal('show');
+            },
+            update(item){
+                this.model = JSON.parse(JSON.stringify(item));
+                this.title = 'UPDATE ACTIVITY TYPE [' + this.model.name + ']';
                 $('#form').modal('show');
             },
             save(){

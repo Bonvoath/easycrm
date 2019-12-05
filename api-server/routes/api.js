@@ -44,4 +44,5 @@ router.post('/stage/save', stageController.save);
 router.post('/stage/update', stageController.update);
 router.post('/activity/type/list', activityController.type_list);
 router.post('/activity/type/save', activityController.type_save);
+router.post('/activity/type/update', activityController.type_update);
 module.exports = router;
