@@ -33,7 +33,7 @@
                         <tbody>
                             <tr v-for="ret in list" :key="ret._id">
                                 <td style="width: 50px;"><input type="checkbox"/></td>
-                                <td>{{ret.name}}</td>
+                                <td><a href="javascript:void(0)" @click="update(ret)">{{ret.name}}</a></td>
                                 <td>{{ret.description}}</td>
                                 <td>{{ret.sort}}</td>
                             </tr>
@@ -46,7 +46,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <span class="modal-title">{{model.title}}</span>
+                        <span class="modal-title">{{title}}</span>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -92,12 +92,13 @@
         data(){
             return {
                 list: [],
+                title: 'ADD NEW TAG',
                 model: {
-                    title: 'ADD NEW TAG',
                     sort: 0,
                     name: '',
                     description: ''
-                }
+                },
+                isUpdate: false
             }
         },
         mounted(){
@@ -112,7 +113,7 @@
                 let loading = this.$loading.show();
                 this.$api().post('tag/list').then(res => {
                     if(this.$isValid(res)){
-                        this.list = res.data;
+                        this.list = res.data.Data;
                     }
                 }).finally(function(){ loading.hide(); });
             },
@@ -124,13 +125,32 @@
                 };
                 $('#form').modal('show');
             },
+            update(item){
+                this.model = JSON.parse(JSON.stringify(item));
+                this.isUpdate = true;
+                this.title = 'UPDATE TAG [' + this.model.name + ']';
+                $('#form').modal('show');
+            },
             save(){
-                this.$api().post('tag/save', this.model).then(res => {
-                    if(this.$isValid(res)){
-                        this.toList();
-                        $('#form').modal('hide');
+                if(this.isUpdate){
+                    let req = {
+                        _id: this.model._id,
+                        fields: this.model
                     }
-                });
+                    this.$api().post('tag/update', req).then(res => {
+                        if(this.$isValid(res)){
+                            this.toList();
+                            $('#form').modal('hide');
+                        }
+                    });
+                }else{
+                    this.$api().post('tag/save', this.model).then(res => {
+                        if(this.$isValid(res)){
+                            this.toList();
+                            $('#form').modal('hide');
+                        }
+                    });
+                }
             }
         }
     }

@@ -33,7 +33,7 @@
                         <tbody>
                             <tr v-for="ret in list" :key="ret._id">
                                 <td><input type="checkbox"/></td>
-                                <td>{{ret.name}}</td>
+                                <td><a href="javascript:void(0)" @click="update(ret)">{{ret.name}}</a></td>
                                 <td>{{ret.description}}</td>
                                 <td>{{ret.sort}}</td>
                             </tr>
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <StageFormModal id="form" @save="save"></StageFormModal>
+        <StageFormModal id="form" @save="save" :title="title" :vmodel="model"></StageFormModal>
     </div>
 </template>
 <script>
@@ -55,12 +55,13 @@
         data(){
             return {
                 list: [],
+                title: 'ADD NEW TAG',
                 model: {
-                    title: 'ADD NEW TAG',
                     sort: 0,
                     name: '',
                     description: ''
-                }
+                },
+                isUpdate: false
             }
         },
         mounted(){
@@ -87,13 +88,33 @@
                 };
                 $('#form').modal('show');
             },
+            update(item){
+                this.model = JSON.parse(JSON.stringify(item));
+                this.isUpdate = true;
+                this.title = 'UPDATE STAGE [' + this.model.name + ']';
+                $('#form').modal('show');
+            },
             save(e){
-                this.$api().post('stage/save', e).then(res => {
-                    if(this.$isValid(res)){
-                        this.toList();
-                        $('#form').modal('hide');
+                console.log(e);
+                if(this.isUpdate){
+                    let req = {
+                        _id: e._id,
+                        fields: e
                     }
-                });
+                    this.$api().post('stage/update', req).then(res => {
+                        if(this.$isValid(res)){
+                            this.toList();
+                            $('#form').modal('hide');
+                        }
+                    });
+                }else{
+                    this.$api().post('stage/save', e).then(res => {
+                        if(this.$isValid(res)){
+                            this.toList();
+                            $('#form').modal('hide');
+                        }
+                    });
+                }
             }
         }
     }

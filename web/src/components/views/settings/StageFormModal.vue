@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span class="modal-title">{{model.title}}</span>
+                    <span class="modal-title">{{titleBar}}</span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -51,21 +51,31 @@
             title: {
                 type: String,
                 default: 'ADD NEW STAGE'
+            },
+            vmodel: {
+                type: Object
             }
         },
         data(){
             return {
-                model: {
-                    title: this.title,
-                    sort: 0,
-                    name: '',
-                    description: ''
-                }
+                titleBar: this.title,
+                model: this.vmodel
             }
         },
         methods: {
             save(){
                 this.$emit('save', this.model);
+            }
+        },
+        watch: {
+            title: function(value){
+                this.titleBar = value;
+            },
+            vmodel:{
+                handler(value){
+                    this.model = value;
+                },
+                deep: true
             }
         }
     }

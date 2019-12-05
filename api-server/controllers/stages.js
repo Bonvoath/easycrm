@@ -1,4 +1,5 @@
 const StageModel = require('../models/stage');
+const Response  = require('../utils/response');
 
 exports.list = (req, res, next) => {
     StageModel.find({}).sort({ sort: 1 }).then((doc) => {
@@ -26,4 +27,18 @@ exports.save = (req, res, next) => {
     }).catch(err => {
         res.status(404).json(err);
     });
+}
+
+exports.update = async(req, res) => {
+    let result = new Response();
+    let id = req.body._id;
+    let fields = req.body.fields;
+    await StageModel.findByIdAndUpdate(id, fields, { new: true }, (err, doc) => {
+        if(err) result.addDetail(err);
+        else{
+            result.success(doc);
+        }
+    });
+
+    return res.status(200).json(result);
 }
