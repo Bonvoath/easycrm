@@ -6,29 +6,29 @@
                     <th><input type="checkbox"/></th>
                     <th>Date</th>
                     <th>Lead</th>
-                    <th>Contact Name</th>
+                    <th class="text-right">Expected Revenue</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>City</th>
                     <th>Country</th>
                     <th>Sale Team</th>
                     <th>Sale Person</th>
-                    <th>Company</th>
+                    <th class="text-right">Stage</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="ret in list" :key="ret.Id">
+                <tr v-for="ret in list" :key="ret._id">
                     <td><input type="checkbox"/></td>
-                    <td>{{$format(ret.Date,'DD/MM/YYYY')}}</td>
-                    <td>{{ret.Name}}</td>
-                    <td>{{ret.ContactName}}</td>
+                    <td>{{$format(ret.created_at,'DD/MM/YYYY HH:mm A')}}</td>
+                    <td>{{ret.name}}</td>
+                    <td class="text-right">${{$money(ret.expected_revenue)}}</td>
                     <td>{{ret.Email}}</td>
                     <td>{{ret.Phone}}</td>
                     <td>{{ret.Mobile}}</td>
                     <td>{{ret.Country}}</td>
                     <td>{{ret.SalePerson}}</td>
                     <td>{{ret.SaleTeam}}</td>
-                    <td>{{ret.Company}}</td>
+                    <td class="text-right">{{ret.stage_id.name}}</td>
                 </tr>
             </tbody>
         </table>
@@ -42,45 +42,17 @@ export default {
         }
     },
     mounted(){
-        this.list.push({
-            Id: 1,
-            Date: new Date(),
-            Name: 'Design Software Info',
-            ContactName: 'Jose Garcia',
-            Email: 'jga@solar.example.com',
-            Phone: '093879882',
-            Mobile: '086879882',
-            Country: 'Cambodia',
-            Company: 'Solar IT',
-            SalePerson: 'March Demo',
-            SaleTeam: 'Cambodia'
-        });
-        this.list.push({
-            Id: 2,
-            Date: new Date(),
-            Name: 'Design Software Info',
-            ContactName: 'Jose Garcia',
-            Email: 'jga@solar.example.com',
-            Phone: '093879882',
-            Mobile: '086879882',
-            Country: 'Cambodia',
-            Company: 'Solar IT',
-            SalePerson: 'March Demo',
-            SaleTeam: 'Cambodia'
-        });
-        this.list.push({
-            Id: 3,
-            Date: new Date(),
-            Name: 'Design Software Info',
-            ContactName: 'Jose Garcia',
-            Email: 'jga@solar.example.com',
-            Phone: '093879882',
-            Mobile: '086879882',
-            Country: 'Cambodia',
-            Company: 'Solar IT',
-            SalePerson: 'March Demo',
-            SaleTeam: 'Cambodia'
-        });
+        this.toList();
+    },
+    methods: {
+        toList(){
+           this.$api().post('pipeline/list').then((res) => {
+               console.log(res.data);
+               if(this.$isValid(res)){
+                   this.list = res.data.Data;
+               }
+           }); 
+        }
     }
 }
 </script>

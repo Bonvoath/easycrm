@@ -4,6 +4,7 @@ const userController = require('../controllers/users');
 const tagController = require('../controllers/tags');
 const stageController = require('../controllers/stages');
 const activityController = require('../controllers/activities');
+const pipelineController = require('../controllers/pipelines');
 const baseDir = require('path').join(__dirname,'../public/static/uploads/');
 const guid = require('uuid/v1');
 
@@ -45,4 +46,7 @@ router.post('/stage/update', stageController.update);
 router.post('/activity/type/list', activityController.type_list);
 router.post('/activity/type/save', activityController.type_save);
 router.post('/activity/type/update', activityController.type_update);
+router.post('/pipeline/list', pipelineController.list);
+router.post('/pipeline/list_group', pipelineController.list_group);
+router.post('/pipeline/save', pipelineController.save);
 module.exports = router;

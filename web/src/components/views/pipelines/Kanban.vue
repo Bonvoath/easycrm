@@ -1,15 +1,15 @@
 <template>
     <div class="card-body" style="padding: 0;">
         <div class="pipeline-container">
-            <div v-for="ret in stages" :key="ret.Id" class="pipeline-stage">
-                <div class="title">{{ret.Name}}</div>
+            <div v-for="ret in stages" :key="ret._id" class="pipeline-stage">
+                <div class="title">{{ret.name}}</div>
                 <draggable class="list-group" tag="ul" group="group-pipeline" v-bind="dragOptions"
-                    @start="drag = true"
-                    @end="drag = false">
+                    @start="checkMove"
+                    @end="checkMove" :move="checkMove">
                     <transition-group type="transition" :name="!drag ? 'flip-list' : null">
-                        <li class="list-group-item" v-for="item in ret.Pipelines" :key="item.Id" data-id="ret.Id">
+                        <li class="list-group-item" v-for="item in ret.pipelines" :key="item._id" :data-id="ret._id">
                             <div class="card card-pipeline">
-                                <div class="card-header"><span @click="onClick(ret)" style="cursor:pointer;">{{item.Name}}</span>
+                                <div class="card-header"><span @click="onClick(ret)" style="cursor:pointer;">{{item.name}}</span>
                                     <div class="pull-right">
                                         <div class="dropdown">
                                             <button class="btn btn-outline-primary btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
@@ -23,7 +23,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div>Tag: {{ret.Tag}}</div>
+                                    <div>Tag: {{ret.tag}}</div>
                                     <div>Revenue: $3,346.00</div>
                                     <div class="footer">
                                         <div class="star">
@@ -55,51 +55,26 @@
         data(){
             return {
                 drag: false,
-                stages: [
-                    {
-                        Name: 'New',
-                        Tag: 'Design',
-                        Pipelines: [
-                            { Id: 1, Name: 'Cras justo odio' },
-                            { Id: 2, Name: 'Dapibus ac facilisis in' },
-                            { Id: 3, Name: 'Morbi leo risus' },
-                            { Id: 4, Name: 'Porta ac consectetur ac' },
-                            { Id: 5, Name: 'Vestibulum at eros' },
-                        ]
-                    },
-                    {
-                        Name: 'Qualified',
-                        Tag: 'Information',
-                        Pipelines: [
-                            { Id: 6, Name: 'Office Design and Architecture' },
-                            { Id: 7, Name: 'Dapibus ac facilisis in' },
-                            { Id: 8, Name: 'Morbi leo risus' },
-                            { Id: 9, Name: 'Porta ac consectetur ac' },
-                            { Id: 10, Name: 'Vestibulum at eros' },
-                        ]
-                    },
-                    {
-                        Name: 'Proposition',
-                        Pipelines: [
-                            { Id: 11, Name: 'Cras justo odio' },
-                            { Id: 12, Name: 'Dapibus ac facilisis in' },
-                            { Id: 13, Name: 'Morbi leo risus' }
-                        ]
-                    },
-                    {
-                        Name: 'Won',
-                        Pipelines: [
-                            { Id: 14, Name: 'Morbi leo risus' },
-                            { Id: 15, Name: 'Porta ac consectetur ac' },
-                            { Id: 16, Name: 'Vestibulum at eros' }
-                        ]
-                    }
-                ]
+                stages: []
             }
         },
+        mounted(){
+            this.toList();
+        },
         methods:{
+            toList(){
+                this.$api().post('pipeline/list_group').then((res) => {
+                    if(this.$isValid(res)){
+                        this.stages = res.data.Data;
+                    }
+                }); 
+            },
             onClick(){
                 alert('Ok');
+            },
+            checkMove(evt){
+                console.log(evt);
+                return false;
             }
         },
         computed: {
