@@ -47,7 +47,3 @@ exports.save = async(req, res, next) => {
 
     return res.status(200).json(result);
 }
-
-async function getPipelineByStageId(stage_id){
-    return await OpportunityModel.find({ stage_id: item._id});
-}

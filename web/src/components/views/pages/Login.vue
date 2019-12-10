@@ -22,7 +22,7 @@
                       type="text"
                       class="font-bat"
                       :placeholder="holder.email"
-                      v-model="model.username"
+                      v-model="model.email"
                       @keypress.enter="emailPressHandler"
                       @focus="holderFocus('email')"
                       @blur="holderBlur('email', $t('email'))"
@@ -66,17 +66,14 @@
 </template>
 
 <script>
-import axios from 'axios'
-import qs from 'qs'
 import CryptoJS from 'crypto-js';
 export default {
   name: "Login",
   data: function() {
     return {
       model: {
-        grant_type: "password",
-        username: "",
-        password: ""
+        email: '',
+        password: ''
       },
       holder: {
         email: this.$t('email'),
@@ -93,18 +90,13 @@ export default {
     clickLoginHandler: function() {
       let _this = this;
       let loading = this.$loading.show();
-      axios({
-        method: 'POST',
-        url: 'http://203.223.44.122:8058/account/login',
-        data: qs.stringify(this.model),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }).then(function(res) {
+      this.$api().post('login', this.model).then(res => {
+        if(_this.$isValid(res)){
           sessionStorage.setItem('jwt', CryptoJS.AES.encrypt(res.data.access_token,'jwtaccess'));
           sessionStorage.setItem('jwt@user', CryptoJS.AES.encrypt(res.data.userName,'jwtaccess'));
           sessionStorage.setItem('jwt@exp', CryptoJS.AES.encrypt(res.data['.expires'],'jwtaccess'));
           _this.$router.push('/');
+        }
       }).finally(function() {
           loading.hide();
       });
