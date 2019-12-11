@@ -7,10 +7,10 @@
                     <th>Date</th>
                     <th>Lead</th>
                     <th class="text-right">Expected Revenue</th>
+                    <th>Customer</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>City</th>
-                    <th>Country</th>
+                    <th>Company</th>
                     <th>Sale Team</th>
                     <th>Sale Person</th>
                     <th class="text-right">Stage</th>
@@ -20,12 +20,12 @@
                 <tr v-for="ret in list" :key="ret._id">
                     <td><input type="checkbox"/></td>
                     <td>{{$format(ret.created_at,'DD/MM/YYYY HH:mm A')}}</td>
-                    <td>{{ret.name}}</td>
+                    <td><router-link :to="{ name: 'opt_update', params: { id: ret._id }}">{{ret.name}}</router-link></td>
                     <td class="text-right">${{$money(ret.expected_revenue)}}</td>
-                    <td>{{ret.Email}}</td>
-                    <td>{{ret.Phone}}</td>
-                    <td>{{ret.Mobile}}</td>
-                    <td>{{ret.Country}}</td>
+                    <td>{{ret.email}}</td>
+                    <td>{{ret.phone}}</td>
+                    <td>{{ret.customer}}</td>
+                    <td>{{ret.company}}</td>
                     <td>{{ret.SalePerson}}</td>
                     <td>{{ret.SaleTeam}}</td>
                     <td class="text-right">{{ret.stage_id.name}}</td>

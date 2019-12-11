@@ -92,6 +92,15 @@ function configRoutes() {
                     }
                 },
                 {
+                    path: 'opt/edit/:id',
+                    name: 'opt_update',
+                    component: PipelineForm,
+                    meta: {
+                        title: i18n.t('update'),
+                        requiresAuth: true
+                    }
+                },
+                {
                     path: 'employee',
                     component: EmployeeList,
                     meta: {

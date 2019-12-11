@@ -48,5 +48,8 @@ router.post('/activity/type/save', activityController.type_save);
 router.post('/activity/type/update', activityController.type_update);
 router.post('/pipeline/list', pipelineController.list);
 router.post('/pipeline/list_group', pipelineController.list_group);
+router.post('/pipeline/listDefault', pipelineController.listDefault);
 router.post('/pipeline/save', pipelineController.save);
+router.post('/pipeline/update', pipelineController.update);
+router.post('/pipeline/find', pipelineController.findOne);
 module.exports = router;

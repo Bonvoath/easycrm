@@ -9,12 +9,12 @@
                     <transition-group type="transition" :name="!drag ? 'flip-list' : null">
                         <li class="list-group-item" v-for="item in ret.pipelines" :key="item._id" :data-id="ret._id">
                             <div class="card card-pipeline">
-                                <div class="card-header"><span @click="onClick(ret)" style="cursor:pointer;">{{item.name}}</span>
+                                <div class="card-header"><router-link :to="{ name: 'opt_update', params: {id:item._id}}" class="x-title">{{item.name}}</router-link>
                                     <div class="pull-right">
                                         <div class="dropdown">
                                             <button class="btn btn-outline-primary btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></button>
                                             <div class="dropdown-menu dropdown-menu-right drop-x" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</a>
+                                                <router-link :to="{ name: 'opt_update', params: {id:item._id}}" class="dropdown-item"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</router-link>
                                                 <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-share" aria-hidden="true"></i>Move</a>
                                                 <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-times" aria-hidden="true"></i>Remove</a>
                                                 <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-history" aria-hidden="true"></i>Schedule Activity</a>
@@ -23,8 +23,8 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div>Tag: {{ret.tag}}</div>
-                                    <div>Revenue: $3,346.00</div>
+                                    <div>Tag: {{item.tag_id.name}}</div>
+                                    <div>Revenue: ${{$money(item.expected_revenue)}}</div>
                                     <div class="footer">
                                         <div class="star">
                                             <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -129,9 +129,11 @@
         border-radius: 0 !important;
         padding: 0px;
         border: none;
+    }
+    .card-pipeline .card-header a.x-title{
+        color: #28a745;
         font-weight: 600;
         font-size: 14px;
-        color: #28a745;
     }
     .card-pipeline .card-body{
         padding: 0 3px;

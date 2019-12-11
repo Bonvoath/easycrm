@@ -92,9 +92,9 @@ export default {
       let loading = this.$loading.show();
       this.$api().post('login', this.model).then(res => {
         if(_this.$isValid(res)){
-          sessionStorage.setItem('jwt', CryptoJS.AES.encrypt(res.data.access_token,'jwtaccess'));
-          sessionStorage.setItem('jwt@user', CryptoJS.AES.encrypt(res.data.userName,'jwtaccess'));
-          sessionStorage.setItem('jwt@exp', CryptoJS.AES.encrypt(res.data['.expires'],'jwtaccess'));
+          sessionStorage.setItem('jwt', CryptoJS.AES.encrypt(res.data.token,'jwtaccess'));
+          sessionStorage.setItem('jwt@user', CryptoJS.AES.encrypt(res.data.data._id,'jwtaccess'));
+          sessionStorage.setItem('jwt@exp', CryptoJS.AES.encrypt(res.data.data.exp.toString(),'jwtaccess'));
           _this.$router.push('/');
         }
       }).finally(function() {

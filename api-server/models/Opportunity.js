@@ -8,14 +8,32 @@ const oppScheme = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    sort: {
+    expected_closed: {
+        type: Date,
+        required: false,
+        default: ''
+    },
+    probability: {
         type: Number,
-        required: true,
         default: 0
     },
     stage_id:{ 
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Stages'
+    },
+    customer: String,
+    email: String,
+    phone: String,
+    description: String,
+    company: String,
+    tag_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Tags'
+    },
+    sort: {
+        type: Number,
+        required: true,
+        default: 0
     },
     created_at: {
         type: Date,
