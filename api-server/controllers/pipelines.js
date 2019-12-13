@@ -81,7 +81,7 @@ exports.findOne = async(req, res, next) => {
     return res.status(200).json(result);
 }
 
-exports.listDefault = async(req, res, next) => {
+exports.list_default = async(req, res, next) => {
     let result = new Response();
     try {
         let data = {
