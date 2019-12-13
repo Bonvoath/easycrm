@@ -47,6 +47,10 @@ export default {
             return result;
         }
 
+        Vue.prototype.$now = () => {
+            return moment();
+        }
+
         Vue.prototype.$format = function(value, format){
             if(value != null && value != ''){
                 return moment(value).format(format);

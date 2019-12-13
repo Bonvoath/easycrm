@@ -14,7 +14,88 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group">
+                                <label class="label-control">Task name</label>
+                                <div>
+                                    <input type="text" class="form-control form-control-sm" v-model="model.name"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="form-group">
+                                <label class="label-control">Project</label>
+                                <div>
+                                    <select class="form-control form-control-sm" v-model="model.project_id">
+                                        <option value="">Not Set</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="form-group">
+                                <label class="label-control">Deadline</label>
+                                <div>
+                                    <input type="date" class="form-control form-control-sm" v-model="deadline"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="form-group">
+                                <label class="label-control">Assign To</label>
+                                <div>
+                                    <select class="form-control form-control-sm" v-model="model.employee_id">
+                                        <option value="">Not Set</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="form-group">
+                                <label class="label-control">Tags</label>
+                                <div>
+                                    <select class="form-control form-control-sm" v-model="model.tag_id">
+                                        <option value="">Not Set</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="form-group">
+                                <label class="label-control">Customer</label>
+                                <div>
+                                    <select class="form-control form-control-sm" v-model="model.customer_id">
+                                        <option value="">Not Set</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="form-group">
+                                <label class="label-control">Planned Hours</label>
+                                <div>
+                                    <input type="number" class="form-control form-control-sm" v-model="model.planned_hours"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group">
+                                <label class="label-control">Description</label>
+                                <div>
+                                    <textarea class="form-control form-control-sm" v-model="model.description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -25,9 +106,10 @@
         data(){
             return {
                 model: {
-                    
+                    deadline: ''
                 },
-                isUpdate: false
+                isUpdate: false,
+                deadline: this.$now().format('YYYY-MM-DD')
             }
         },
         created(){
@@ -55,6 +137,7 @@
                 else this.dbSave();
             },
             dbSave(){
+                this.model.deadline = this.deadline;
                 this.$api().post('task/save', this.model).then(res => {
                     if(this.$isValid(res)){
                         this.$router.push('/task');
