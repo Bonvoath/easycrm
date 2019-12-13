@@ -7,8 +7,25 @@ const leadScheme = new mongoose.Schema({
     customer: String,
     email: String,
     phone: String,
+    mobile: String,
     description: String,
     company: String,
+    address: String,
+    state: String,
+    city: String,
+    zip: String,
+    country: String,
+    contact_name: String,
+    job_position: String,
+    priority: String,
+    sale_per_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Employees'
+    },
+    sale_team_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SaleTeams'
+    },
     sort: {
         type: Number,
         required: true,

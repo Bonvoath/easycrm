@@ -1,5 +1,5 @@
 const Response  = require('../utils/response');
-const OpportunityModel = require('../models/Opportunity');
+const OpportunityModel = require('../models/opportunity');
 const StageModel = require('../models/stage');
 const TagModel = require('../models/tag');
 
