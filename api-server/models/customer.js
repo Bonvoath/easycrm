@@ -22,4 +22,4 @@ const customerScheme = new mongoose.Schema({
         default: ''
     }
 });
-module.exports = new mongoose.model('Customer', customerScheme);
+module.exports = new mongoose.model('Customers', customerScheme);

@@ -16,6 +16,3 @@ const logScheme = new mongoose.Schema({
     toJson: String
 });
 module.exports = new mongoose.model('TranLog', logScheme);
-{
-    10/10/2019 | 'INSERT DELETE UPDATE ERROR'
-}
