@@ -36,9 +36,47 @@
                                 <th>Customer</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr v-for="ret in list" :key="ret._id">
+                                <td><input type="checkbox"/></td>
+                                <td>{{ret.name}}</td>
+                                <td>{{ret.project_name}}</td>
+                                <td>{{ret.assign_to}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </template>
+<script>
+    export default {
+        data(){
+            return {
+                query: {
+
+                },
+                list: []
+            }
+        },
+        created(){
+            this.toList();
+        },
+        methods: {
+            toList(){
+                this.$api().post('task/list', this.query).then(res => {
+                    if(this.$isValid(res)){
+                        this.list = res.data.Data;
+                    }
+                });
+            }
+        }
+    }
+</script>

@@ -71,5 +71,9 @@ export default {
         }
 
         Vue.component('loading', Loading);
+
+        Vue.prototype.isNullOrEmpty = (value) => {
+            return (value == undefined || value == '');
+        }
     }
 }
