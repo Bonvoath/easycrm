@@ -75,6 +75,7 @@
                                 <div>
                                     <select class="form-control form-control-sm" v-model="model.customer_id">
                                         <option value="">Not Set</option>
+                                        <option v-for="ret in customers" :value="ret._id" :key="ret._id">{{ret.name}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -110,12 +111,14 @@
                 title: this.$t('new'),
                 model: {
                     employee_id: '',
+                    customer_id: '',
                     tag_id: '',
                     deadline: '',
                     planned_hours: '00:00'
                 },
                 tags: [],
                 employees: [],
+                customers: [],
                 isUpdate: false,
                 deadline: this.$now().format('YYYY-MM-DD')
             }
@@ -126,6 +129,7 @@
                     let data = res.data.Data;
                     this.tags = data.tags;
                     this.employees = data.employees;
+                    this.customers = data.customers;
                 }
             });
             let id = this.$route.params.id;
@@ -163,6 +167,7 @@
                     fields: {
                         name: this.model.name,
                         employee_id: this.model.employee_id,
+                        customer_id: this.model.customer_id,
                         tag_id: this.model.tag_id,
                         deadline: this.deadline,
                         planned_hours: this.model.planned_hours,

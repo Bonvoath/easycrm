@@ -2,14 +2,19 @@ const Response  = require('../utils/response');
 const TaskModel = require('../models/task');
 const TagModel = require('../models/tag');
 const EmployeeModel = require('../models/employee');
+const CustomerModel = require('../models/customer');
 
 exports.list = async(req, res, next) => {
     let result = new Response();
-    await TaskModel.find({}).populate('employee_id').sort({ sort: 1 }).then((docs) => {
-        result.success(docs);
-    }).catch((err) => {
-        result.addDetail(err);
-    });
+    await TaskModel.find({})
+        .populate('employee_id')
+        .populate('customer_id')               
+        .sort({ sort: 1 })
+        .then((docs) => {
+            result.success(docs);
+        }).catch((err) => {
+            result.addDetail(err);
+        });
 
     return res.status(200).json(result);
 }
@@ -19,7 +24,8 @@ exports.list_default = async(req, res, next) => {
     try {
         let data = {
             tags: await TagModel.find({}).sort({ sort: 1}),
-            employees: await EmployeeModel.find({}).sort({ sort: 1 })
+            employees: await EmployeeModel.find({}).sort({ sort: 1 }),
+            customers: await CustomerModel.find().sort({ sort: 1 })
         }
         result.success(data);
     } catch (error) {

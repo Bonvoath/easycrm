@@ -47,7 +47,7 @@
                                 <td>{{$format(ret.deadline,'DD-MM-YYYY')}}</td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <td>{{ret.customer_id!=undefined?ret.customer_id.name:''}}</td>
                             </tr>
                         </tbody>
                     </table>
