@@ -4,6 +4,11 @@ const taskScheme = new mongoose.Schema({
         type: String,
         required: true
     },
+    employee_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: 'Employees'
+    },
     tag_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,

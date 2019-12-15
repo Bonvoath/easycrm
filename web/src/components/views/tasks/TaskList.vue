@@ -41,10 +41,10 @@
                                 <td><input type="checkbox"/></td>
                                 <td><router-link :to="{ name: 'task_update', params: { id: ret._id }}">{{ret.name}}</router-link></td>
                                 <td>{{ret.project_name}}</td>
-                                <td>{{ret.assign_to}}</td>
+                                <td>{{ret.employee_id.khmer_name}}</td>
+                                <td>{{ret.planned_hours}}</td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{$format(ret.deadline,'DD-MM-YYYY')}}</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

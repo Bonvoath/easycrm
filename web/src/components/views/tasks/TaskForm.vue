@@ -51,6 +51,7 @@
                                 <div>
                                     <select class="form-control form-control-sm" v-model="model.employee_id">
                                         <option value="">Not Set</option>
+                                        <option v-for="ret in employees" :value="ret._id" :key="ret._id">{{ ret.khmer_name}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -108,11 +109,13 @@
             return {
                 title: this.$t('new'),
                 model: {
+                    employee_id: '',
                     tag_id: '',
                     deadline: '',
                     planned_hours: '00:00'
                 },
                 tags: [],
+                employees: [],
                 isUpdate: false,
                 deadline: this.$now().format('YYYY-MM-DD')
             }
@@ -120,7 +123,9 @@
         created(){
             this.$api().post('task/default').then(res => {
                 if(this.$isValid(res)){
-                    this.tags = res.data.Data.tags;
+                    let data = res.data.Data;
+                    this.tags = data.tags;
+                    this.employees = data.employees;
                 }
             });
             let id = this.$route.params.id;
@@ -157,6 +162,7 @@
                     _id: this.model._id,
                     fields: {
                         name: this.model.name,
+                        employee_id: this.model.employee_id,
                         tag_id: this.model.tag_id,
                         deadline: this.deadline,
                         planned_hours: this.model.planned_hours,

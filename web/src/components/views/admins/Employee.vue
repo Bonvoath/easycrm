@@ -20,20 +20,21 @@
                                 <th>ID Card</th>
                                 <th>Khmer Name</th>
                                 <th>Latin Name</th>
+                                <th>Date of Birth</th>
                                 <th>Sex</th>
                                 <th>Phone</th>
-                                <th>Address</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(ret,index) in list" :key="ret.Id">
                                 <td>{{index+1}}</td>
-                                <td><router-link :to="{name:'employee_update', params: {id: ret.Id}}">{{ret.IdCard}}</router-link></td>
-                                <td>{{ret.KhmerName}}</td>
-                                <td>{{ret.LatinName}}</td>
-                                <td>{{ret.SexName}}</td>
-                                <td>{{ret.Phone}}</td>
-                                <td>{{ret.Pob}}</td>
+                                <td><router-link :to="{name:'employee_update', params: {id: ret._id}}">{{(ret.id_card==undefinded || ret.id_card==null)?'Not Id Card':ret.id_card}}</router-link></td>
+                                <td>{{ret.khmer_name}}</td>
+                                <td>{{ret.latin_name}}</td>
+                                <td>{{$format(ret.dob,'DD-MM-YYYY')}}</td>
+                                <td>{{ret.sex}}</td>
+                                <td>{{ret.phone}}</td>
                             </tr>
                         </tbody>
                     </table>

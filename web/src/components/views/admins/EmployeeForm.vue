@@ -12,7 +12,7 @@
             <div class="card card-form">
                 <div class="card-header">
                     <div class="toolbar">
-                        <button type="button" class="btn btn-outline-secondary btn-sm" @click="save"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{$t('save')}}</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" @click="onSaveClick"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{$t('save')}}</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -24,7 +24,7 @@
                                     <div class="form-group">
                                         <label class="label-control kh">Khmer Name</label>
                                         <div>
-                                            <input type="text" class="form-control form-control-sm kh" v-model="model.KhmerName"/>
+                                            <input type="text" class="form-control form-control-sm kh" v-model="model.khmer_name"/>
                                         </div>
                                     </div>
                                 </div>
@@ -32,7 +32,7 @@
                                     <div class="form-group">
                                         <label class="label-control kh">Latin Name</label>
                                         <div>
-                                            <input type="text" class="form-control form-control-sm kh" v-model="model.LatinName"/>
+                                            <input type="text" class="form-control form-control-sm kh" v-model="model.latin_name"/>
                                         </div>
                                     </div>
                                 </div>
@@ -50,9 +50,9 @@
                                     <div class="form-group">
                                         <label for="" class="label-control kh">Sex</label>
                                         <div>
-                                            <select class="form-control form-control-sm kh" v-model="model.Sex">
-                                                <option value="1">ប្រុស</option>
-                                                <option value="2">ស្រី</option>
+                                            <select class="form-control form-control-sm kh" v-model="model.sex">
+                                                <option value="M">Male</option>
+                                                <option value="F">Female</option>
                                             </select>
                                         </div>
                                     </div>
@@ -63,7 +63,7 @@
                                     <div class="form-group">
                                         <label class="label-control kh">Nationality</label>
                                         <div>
-                                            <select class="form-control form-control-sm kh" v-model="model.Nationality">
+                                            <select class="form-control form-control-sm kh" v-model="model.nationality">
                                                 <option value="">Select</option>                                                
                                                 <option v-for="ret in nationals" :value="ret.Id" :key="ret.Id">{{ret.Name}}</option>
                                             </select>
@@ -74,7 +74,7 @@
                                     <div class="form-group">
                                         <label class="label-control kh">Religion</label>
                                         <div>
-                                            <select class="form-control form-control-sm kh" v-model="model.Religion">
+                                            <select class="form-control form-control-sm kh" v-model="model.religion">
                                                 <option value="">Select</option>
                                                 <option v-for="ret in religions" :value="ret.Name" :key="ret.Id">{{ret.Name}}</option>
                                             </select>
@@ -87,7 +87,7 @@
                                     <div class="form-group">
                                         <label class="label-control kh">Phone</label>
                                         <div>
-                                            <input type="text" class="form-control form-control-sm" v-model="model.Phone"/>
+                                            <input type="text" class="form-control form-control-sm" v-model="model.phone"/>
                                         </div>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
                                     <div class="form-group">
                                         <label class="label-control kh">Email</label>
                                         <div>
-                                            <input type="text" class="form-control form-control-sm kh" v-model="model.Email"/>
+                                            <input type="text" class="form-control form-control-sm kh" v-model="model.email"/>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@
                                     <div class="form-group">
                                         <label class="label-control kh">ID Card Number</label>
                                         <div>
-                                            <input type="text" class="form-control form-control-sm kh" v-model="model.IdCard"/>
+                                            <input type="text" class="form-control form-control-sm kh" v-model="model.id_card"/>
                                         </div>
                                     </div>
                                 </div>
@@ -173,11 +173,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="text" class="form-control form-control-sm kh" v-model="model.Address" disabled/>
-                            <div style="padding: 5px 0;">
-                                <button type="button" class="btn btn-success btn-sm kh" @click="showLoc(2)">Choose</button>  &nbsp;
-                                <button type="button" class="btn btn-danger btn-sm kh">Clear</button>
-                            </div>
+                            <input type="text" class="form-control form-control-sm kh" v-model="model.address"/>
                         </div>
                         <div class="col-sm-6">
                             <h5 style="font-size: 14px;">EDUCATION & SKILL INFO</h5>
@@ -250,79 +246,90 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="text" class="form-control form-control-sm kh" v-model="model.Pod" disabled/>
-                            <div style="padding: 5px 0;">
-                                <button type="button" class="btn btn-success btn-sm" @click="showLoc(2)">Choose</button>  &nbsp;
-                                <button type="button" class="btn btn-danger btn-sm">Clear</button>
-                            </div>
+                            <input type="text" class="form-control form-control-sm kh" v-model="model.Pod"/>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <LocationSelect id="frmLoc" size="modal-lg"></LocationSelect>
     </div>
 </template>
 <script>
-    import LocationSelect from '../locations/Select';
-    import $ from 'jquery';
     export default {
-        components:{
-            LocationSelect
-        },
         data(){
             return {
                 title: this.$t('new'),
                 model: {
-                    KhmerName: '',
-                    Sex: 1,
-                    IdCard: '',
-                    Phone: '',
-                    CreatedBy: sessionStorage.getItem('jwt@user')
+                    khmer_name: '',
+                    latin_name: '',
+                    sex: 'M'
                 },
                 date: {
                     dob: '',
-                    idCreated: '',
+                    id_created: '',
                     join: ''
                 },
                 nationals: [],
                 religions: [],
-                loctype: 0
+                isUpdate: false
             }
         },
         created(){
             this.init();
             let id = this.$route.params.id;
             if(id != undefined && id != ''){
+                this.findById(id);
+                this.isUpdate = true;
+            }
+        },
+        methods: {
+            findById(id){
                 let loading = this.$loading.show();
-                this.$api().post('api/employee/get', {Id: id}).then(res=>{
+                this.$api().post('employee/find', { id: id }).then(res => {
                     if(this.$isValid(res)){
                         let data = res.data.Data;
                         this.model = data;
-                        this.date.dob = this.$format(data.Dob, 'YYYY-MM-DD');
+                        this.title = this.$t('update') + ' / [' + this.model.khmer_name + ']';
+                        this.date.dob = this.$format(data.dob, 'YYYY-MM-DD');
                         this.date.idCreated = this.$format(data.IdCardCreated, 'YYYY-MM-DD');
                         this.date.join = this.$format(data.JoinDate, 'YYYY-MM-DD');
                     }
                 }).catch(error => {
                     this.$toasted.show(error);
                 }).finally(() => { loading.hide(); });
-            }
-        },
-        mounted: function(){
-            $('#frmLoc').modal({
-                backdrop: false,
-                show: false
-            });
-        },
-        methods: {
-            save(){
+            },
+            onSaveClick(){
+                if(this.isUpdate) this.dbUpdate();
+                else this.dbSave();
+            },
+            dbSave(){
                 let loading = this.$loading.show();
-                this.model.Dob = this.date.dob;
-                this.model.IdCardCreated = this.date.idCreated;
-                this.model.JoinDate = this.date.join;
-                this.$api().post('api/employee/save', this.model).then(res => {
+                this.model.created_by = this.$user();
+                this.model.dob = this.date.dob;
+                this.$api().post('employee/save', this.model).then(res => {
                     if(this.$isValid(res)){
-                        this.$router.push('/admin/employee');
+                        this.$router.push('/employee');
+                    }
+                }).catch(error => {
+                    this.$toasted.show(error);
+                }).finally(() => { loading.hide(); });
+            },
+            dbUpdate(){
+                let loading = this.$loading.show();
+                let req = {
+                    _id: this.model._id,
+                    fields:{
+                        khmer_name: this.model.khmer_name,
+                        latin_name: this.model.latin_name,
+                        dob: this.date.dob,
+                        sex: this.model.sex,
+                        id_card: this.model.id_card,
+                        updated_by: this.$user()
+                    }
+                };
+                this.$api().post('employee/update', req).then(res => {
+                    if(this.$isValid(res)){
+                        this.$router.push('/employee');
                     }
                 }).catch(error => {
                     this.$toasted.show(error);
@@ -330,19 +337,13 @@
             },
             init(){
                 let loading = this.$loading.show();
-                this.$api().post('api/employee/default').then(res=>{
+                this.$api().post('employee/default').then(res=>{
                     if(this.$isValid(res)){
-                        let data = res.data.Data;
-                        this.nationals = data.Nationalities;
-                        this.religions = data.Religions;
+                        //let data = res.data.Data;
                     }
                 }).catch(error => {
                     this.$toasted.show(error);
                 }).finally(() => { loading.hide(); });
-            },
-            showLoc(n){
-                this.loading = n;
-                $('#frmLoc').modal('show');
             }
         }
     }

@@ -136,7 +136,7 @@ function configRoutes() {
                 },
                 {
                     path: 'employee/edit/:id',
-                    name: 'edit_employee',
+                    name: 'employee_update',
                     component: EmployeeForm,
                     meta: {
                         title: i18n.t('update'),
