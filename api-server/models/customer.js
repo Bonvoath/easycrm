@@ -4,6 +4,17 @@ const customerScheme = new mongoose.Schema({
         type: String,
         required: true
     },
+    type: String,
+    address: String,
+    city: String,
+    state: String,
+    zip: String,
+    country: String,
+    tax_id: String,
+    phone: String,
+    mobile: String,
+    email: String,
+    website: String,
     created_at: {
         type: Date,
         default: Date.now,

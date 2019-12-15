@@ -28,22 +28,30 @@
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Phone</th>
+                                <th>Mobile</th>
                                 <th>Email</th>
+                                <th>Website</th>
+                                <th>Address</th>
                                 <th>City</th>
                                 <th>State</th>
+                                <th>Zip</th>
                                 <th>Country</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="ret in list" :key="ret.Id">
                                 <td><input type="checkbox"/></td>
-                                <td>{{$format(ret.Date,'DD/MM/YYYY')}}</td>
-                                <td>{{ret.Name}}</td>
-                                <td>{{ret.ContactName}}</td>
-                                <td>{{ret.Email}}</td>
-                                <td>{{ret.Phone}}</td>
-                                <td>{{ret.Mobile}}</td>
-                                <td>{{ret.Country}}</td>
+                                <td><router-link :to="{ name: 'contact_update', params: { id: ret._id }}">{{ret.name}}</router-link></td>
+                                <td>{{ret.type}}</td>
+                                <td>{{ret.phone}}</td>
+                                <td>{{ret.mobile}}</td>
+                                <td>{{ret.email}}</td>
+                                <td>{{ret.website}}</td>
+                                <td>{{ret.address}}</td>
+                                <td>{{ret.city}}</td>
+                                <td>{{ret.state}}</td>
+                                <td>{{ret.zip}}</td>
+                                <td>{{ret.country}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -59,46 +67,20 @@ export default {
             list: []
         }
     },
-    mounted(){
-        this.list.push({
-            Id: 1,
-            Date: new Date(),
-            Name: 'Design Software Info',
-            ContactName: 'Jose Garcia',
-            Email: 'jga@solar.example.com',
-            Phone: '093879882',
-            Mobile: '086879882',
-            Country: 'Cambodia',
-            Company: 'Solar IT',
-            SalePerson: 'March Demo',
-            SaleTeam: 'Cambodia'
-        });
-        this.list.push({
-            Id: 2,
-            Date: new Date(),
-            Name: 'Design Software Info',
-            ContactName: 'Jose Garcia',
-            Email: 'jga@solar.example.com',
-            Phone: '093879882',
-            Mobile: '086879882',
-            Country: 'Cambodia',
-            Company: 'Solar IT',
-            SalePerson: 'March Demo',
-            SaleTeam: 'Cambodia'
-        });
-        this.list.push({
-            Id: 3,
-            Date: new Date(),
-            Name: 'Design Software Info',
-            ContactName: 'Jose Garcia',
-            Email: 'jga@solar.example.com',
-            Phone: '093879882',
-            Mobile: '086879882',
-            Country: 'Cambodia',
-            Company: 'Solar IT',
-            SalePerson: 'March Demo',
-            SaleTeam: 'Cambodia'
-        });
+    created(){
+        this.dbList();
+    },
+    methods: {
+        dbList(){
+            let loading = this.$loading.show();
+            this.$api().post('customer/list').then(res => {
+                if(this.$isValid(res)){
+                    this.list = res.data.Data;
+                }
+            }).catch(error => {
+                    this.$toasted.show(error);
+            }).finally(() => { loading.hide(); });
+        }
     }
 }
 </script>

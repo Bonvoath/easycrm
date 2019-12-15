@@ -16,6 +16,7 @@ const TaskList = () => import('../components/views/tasks/TaskList');
 const TaskForm = () => import('../components/views/tasks/TaskForm');
 const ActivityList = () => import('../components/views/activities/ActivityList');
 const ContactList = () => import('../components/views/contacts/ContactList');
+const ContactForm = () => import('../components/views/contacts/ContactForm');
 const PipelineForm = () => import('../components/views/pipelines/Form');
 const StageList = () => import('../components/views/settings/StageList');
 const TagList = () => import('../components/views/settings/TagList');
@@ -90,6 +91,23 @@ function configRoutes() {
                     component: ContactList,
                     meta: {
                         title: i18n.t('contact'),
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: 'contact/create',
+                    component: ContactForm,
+                    meta: {
+                        title: i18n.t('new'),
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: 'contact/edit/:id',
+                    name: 'contact_update',
+                    component: ContactForm,
+                    meta: {
+                        title: i18n.t('update'),
                         requiresAuth: true
                     }
                 },
