@@ -52,6 +52,15 @@ function configRoutes() {
                     }
                 },
                 {
+                    path: 'lead/edit/:id',
+                    name: 'lead_update',
+                    component: LeadForm,
+                    meta: {
+                        title: i18n.t('update'),
+                        requiresAuth: true
+                    }
+                },
+                {
                     path: 'task',
                     component: TaskList,
                     meta: {
@@ -63,7 +72,16 @@ function configRoutes() {
                     path: 'task/create',
                     component: TaskForm,
                     meta: {
-                        title: i18n.t('task'),
+                        title: i18n.t('new'),
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: 'task/edit/:id',
+                    name: 'task_update',
+                    component: TaskForm,
+                    meta: {
+                        title: i18n.t('update'),
                         requiresAuth: true
                     }
                 },

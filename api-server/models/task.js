@@ -4,6 +4,17 @@ const taskScheme = new mongoose.Schema({
         type: String,
         required: true
     },
+    tag_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: 'Tags'
+    },
+    deadline: {
+        type: Date,
+        require: false
+    },
+    planned_hours: String,
+    description: String,
     created_at: {
         type: Date,
         default: Date.now,

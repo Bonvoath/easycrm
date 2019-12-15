@@ -1,10 +1,11 @@
 const Response  = require('../utils/response');
-const LeadModel = require('../models/lead');
+const EmployeeModel = require('../models/employee');
+const TaskModel = require('../models/task');
 const TagModel = require('../models/tag');
 
 exports.list = async(req, res, next) => {
     let result = new Response();
-    await LeadModel.find({}).sort({ sort: 1 }).then((docs) => {
+    await EmployeeModel.find({}).sort({ sort: 1 }).then((docs) => {
         result.success(docs);
     }).catch((err) => {
         result.addDetail(err);
@@ -30,7 +31,7 @@ exports.list_default = async(req, res, next) => {
 exports.save = async(req, res, next) => {
     let result = new Response();
     try {
-        let tag = new LeadModel(req.body);
+        let tag = new EmployeeModel(req.body);
         let doc = await tag.save();
         result.success(doc);
     } catch (error) {
@@ -44,7 +45,7 @@ exports.update = async(req, res) => {
     let result = new Response();
     let id = req.body._id;
     let fields = req.body.fields;
-    await LeadModel.updateOne({ _id:id }, fields, { new: true }, (err, doc) => {
+    await EmployeeModel.updateOne({ _id:id }, fields, { new: true }, (err, doc) => {
         if(err) result.addDetail(err);
         else{
             result.success(doc);
@@ -57,7 +58,7 @@ exports.update = async(req, res) => {
 exports.findOne = async(req, res, next) => {
     let result = new Response();
     try {
-        var opt = await LeadModel.findOne({ _id: req.body.id});
+        var opt = await EmployeeModel.findOne({ _id: req.body.id});
         result.success(opt);
     } catch (error) {
         result.addDetail(error);

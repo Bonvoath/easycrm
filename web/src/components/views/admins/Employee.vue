@@ -9,7 +9,7 @@
             <div class="card card-list">
                 <div class="card-header">
                     <div class="toolbar">
-                        <router-link to="/employee/create" class="btn btn-outline-secondary btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i> បន្ថែមថ្មី</router-link>
+                        <router-link to="/employee/create" class="btn btn-outline-secondary btn-sm"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{$t('new')}}</router-link>
                     </div>
                 </div>
                 <div class="card-body">
@@ -28,7 +28,7 @@
                         <tbody>
                             <tr v-for="(ret,index) in list" :key="ret.Id">
                                 <td>{{index+1}}</td>
-                                <td><router-link :to="{name:'edit_employee', params: {id: ret.Id}}">{{ret.IdCard}}</router-link></td>
+                                <td><router-link :to="{name:'employee_update', params: {id: ret.Id}}">{{ret.IdCard}}</router-link></td>
                                 <td>{{ret.KhmerName}}</td>
                                 <td>{{ret.LatinName}}</td>
                                 <td>{{ret.SexName}}</td>
@@ -55,7 +55,7 @@
         methods: {
             toList(){
                 let loading = this.$loading.show();
-                this.$api().post('api/employee/list').then(res => {
+                this.$api().post('employee/list').then(res => {
                     if(this.$isValid(res)){
                         this.list = res.data.Data;
                     }

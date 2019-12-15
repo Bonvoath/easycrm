@@ -19,6 +19,7 @@ const oppScheme = new mongoose.Schema({
     },
     stage_id:{ 
         type: mongoose.Schema.Types.ObjectId,
+        required: false,
         ref: 'Stages'
     },
     customer: String,

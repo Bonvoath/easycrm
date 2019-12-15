@@ -39,7 +39,7 @@
                         <tbody>
                             <tr v-for="ret in list" :key="ret._id">
                                 <td><input type="checkbox"/></td>
-                                <td>{{ret.name}}</td>
+                                <td><router-link :to="{ name: 'task_update', params: { id: ret._id }}">{{ret.name}}</router-link></td>
                                 <td>{{ret.project_name}}</td>
                                 <td>{{ret.assign_to}}</td>
                                 <td></td>

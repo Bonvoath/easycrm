@@ -2,6 +2,8 @@ export default {
     activity_type: 'Activity Types',
     contact: 'Contacts',
     create: 'New',
+    employee: 'Employee',
+    update: 'Update',
     email: 'Email',
     home: 'Home',
     lead: 'Leads',

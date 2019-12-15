@@ -6,6 +6,8 @@ const stageController = require('../controllers/stages');
 const activityController = require('../controllers/activities');
 const pipelineController = require('../controllers/pipelines');
 const leadController = require('../controllers/leads');
+const taskController = require('../controllers/tasks');
+const employeeController = require('../controllers/employees');
 const baseDir = require('path').join(__dirname,'../public/static/uploads/');
 const guid = require('uuid/v1');
 
@@ -59,8 +61,21 @@ router.post('/pipeline/update', pipelineController.update);
 router.post('/pipeline/find', pipelineController.findOne);
 
 router.post('/lead/listDefault', leadController.list_default);
+router.post('/lead/list', leadController.list);
 router.post('/lead/save', leadController.save);
 router.post('/lead/update', leadController.update);
 router.post('/lead/find', leadController.findOne);
+
+router.post('/task/default', taskController.list_default);
+router.post('/task/list', taskController.list);
+router.post('/task/save', taskController.save);
+router.post('/task/update', taskController.update);
+router.post('/task/find', taskController.findOne);
+
+router.post('/employee/default', employeeController.list_default);
+router.post('/employee/list', employeeController.list);
+router.post('/employee/save', employeeController.save);
+router.post('/employee/update', employeeController.update);
+router.post('/employee/find', employeeController.findOne);
 
 module.exports = router;

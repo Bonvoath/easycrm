@@ -5,14 +5,14 @@
                 <li class="breadcrumb-item" aria-current="page">
                     <router-link to="/employee">Employees</router-link>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">New</li>
+                <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
             </ol>
         </nav>
         <div class="content">
             <div class="card card-form">
                 <div class="card-header">
                     <div class="toolbar">
-                        <button type="button" class="btn btn-outline-secondary btn-sm" @click="save"><i class="fa fa-plus-circle" aria-hidden="true"></i> រក្សាទុក</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" @click="save"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{$t('save')}}</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -272,6 +272,7 @@
         },
         data(){
             return {
+                title: this.$t('new'),
                 model: {
                     KhmerName: '',
                     Sex: 1,

@@ -20,10 +20,12 @@ const leadScheme = new mongoose.Schema({
     priority: String,
     sale_per_id: {
         type: mongoose.Schema.Types.ObjectId,
+        required: false,
         ref: 'Employees'
     },
     sale_team_id: {
         type: mongoose.Schema.Types.ObjectId,
+        required: false,
         ref: 'SaleTeams'
     },
     sort: {

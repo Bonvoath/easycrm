@@ -3,7 +3,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb font-kulen">
                 <li class="breadcrumb-item" aria-current="page"><router-link to="/lead">{{$t('lead')}}</router-link></li>
-                <li class="breadcrumb-item active" aria-current="page">{{$t('new')}}</li>
+                <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
             </ol>
         </nav>
         <div class="content">
@@ -71,6 +71,7 @@
                                 <div>
                                     <select type="text" class="form-control form-control-sm" v-model="model.country">
                                         <option value="">Not Set</option>
+                                        <option value="Cambodia">Cambodia</option>
                                     </select>
                                 </div>
                             </div>
@@ -101,7 +102,7 @@
                             <div class="form-group">
                                 <label for="" class="label-control kh">Contact name</label>
                                 <div>
-                                    <input type="text" class="form-control form-control-sm" v-model="model.contact_name">
+                                    <input type="text" class="form-control form-control-sm" v-model="model.customer">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -168,8 +169,14 @@
         },
         data(){
             return {
+                title: this.$t('new'),
                 model: {
-
+                    name: '',
+                    sale_per_id: '',
+                    country: '',
+                    sale_team_id: '',
+                    priority: '',
+                    sort: 0
                 },
                 teams: [],
                 isUpdate: false
@@ -178,11 +185,12 @@
         created(){
             this.$api().post('lead/listDefault').then(res => {
                 if(this.$isValid(res)){
-                    this.teams = res.data.Data.saleTeams;
+                    this.teams = res.data.Data!=null?res.data.Data.tags:'';
                 }
             });
             let id = this.$route.params.id;
             if(id != undefined && id != ''){
+                this.isUpdate = true;
                 this.findById(id);
             }
         },
@@ -191,6 +199,7 @@
                 this.$api().post('lead/find', { id: id }).then(res => {
                     if(this.$isValid(res)){
                         this.model = res.data.Data;
+                        this.title = this.$t('update') + ' / [' + this.model.name + ']';
                     }
                 });
             },
@@ -199,7 +208,20 @@
                     let req = {
                         _id: this.model._id,
                         fields: {
-                            name: this.model.name
+                            name: this.model.name,
+                            customer: this.model.customer,
+                            job_position: this.model.job_position,
+                            email: this.model.email,
+                            phone: this.model.phone,
+                            mobile: this.model.mobile,
+                            company: this.model.company,
+                            address: this.model.address,
+                            city: this.model.city,
+                            state: this.model.state,
+                            zip: this.model.zip,
+                            country: this.model.country,
+                            description: this.model.description,
+                            updated_by: this.$user()
                         }
                     };
                     this.$api().post('lead/update', req).then(res => {
@@ -208,6 +230,7 @@
                         }
                     });
                 }else{
+                    this.model.created_by = this.$user()
                     this.$api().post('lead/save', this.model).then(res => {
                         if(this.$isValid(res)){
                             this.$router.push('/lead');
