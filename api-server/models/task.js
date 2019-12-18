@@ -19,6 +19,11 @@ const taskScheme = new mongoose.Schema({
         required: false,
         ref: 'Customers'
     },
+    project_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: 'Projects'
+    },
     deadline: {
         type: Date,
         require: false

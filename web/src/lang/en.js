@@ -16,6 +16,7 @@ export default {
     pipeline: 'Pipelines',
     sign_in: 'Sign In',
     stage: 'Stages',
+    project: 'Projects',
     login_header: 'Sign In',
     company: 'Company Info',
     save: 'Save',

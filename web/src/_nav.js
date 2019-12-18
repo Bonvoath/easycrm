@@ -1,8 +1,8 @@
 export default {
     items: [
         {
-            name: 'Companies',
-            url: '/company',
+            name: 'Projects',
+            url: '/project',
             icon: 'fa fa-laptop'
         },
         {

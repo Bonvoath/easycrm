@@ -9,6 +9,8 @@ const leadController = require('../controllers/leads');
 const taskController = require('../controllers/tasks');
 const employeeController = require('../controllers/employees');
 const customerController = require('../controllers/customers');
+const projectController = require('../controllers/projects');
+const saleTeamController = require('../controllers/saleTeams');
 const baseDir = require('path').join(__dirname,'../public/static/uploads/');
 const guid = require('uuid/v1');
 
@@ -83,5 +85,15 @@ router.post('/customer/list', customerController.list);
 router.post('/customer/save', customerController.save);
 router.post('/customer/update', customerController.update);
 router.post('/customer/find', customerController.findOne);
+
+router.post('/project/list', projectController.list);
+router.post('/project/save', projectController.save);
+router.post('/project/update', projectController.update);
+router.post('/project/find', projectController.findOne);
+
+router.post('/saleteam/list', saleTeamController.list);
+router.post('/saleteam/save', saleTeamController.save);
+router.post('/saleteam/update', saleTeamController.update);
+router.post('/saleteam/find', saleTeamController.findOne);
 
 module.exports = router;

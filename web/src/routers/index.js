@@ -6,7 +6,6 @@ import CryptoJS from 'crypto-js';
 import { i18n } from '../lang/i18n'
 const AdminContainer = () => import('../components/containers/AdminContainer');
 const PageAdminDashboard = () => import('../components/views/admins/Dashboard');
-const CompanyForm = () => import('../components/views/admins/CompanyForm');
 const EmployeeList = () => import('../components/views/admins/Employee');
 const EmployeeForm = () => import('../components/views/admins/EmployeeForm');
 const PageLogin = () => import('../components/views/pages/Login');
@@ -21,6 +20,8 @@ const PipelineForm = () => import('../components/views/pipelines/Form');
 const StageList = () => import('../components/views/settings/StageList');
 const TagList = () => import('../components/views/settings/TagList');
 const ActivityTypeList = () => import('../components/views/settings/ActivityType');
+const ProjectList = () => import('../components/views/projects/ListView');
+const ProjectForm = () => import('../components/views/projects/FormView');
 function configRoutes() {
     return [
         {
@@ -162,10 +163,27 @@ function configRoutes() {
                     }
                 },
                 {
-                    path: 'company',
-                    component: CompanyForm,
+                    path: 'project',
+                    component: ProjectList,
                     meta: {
-                        title: i18n.t('company'),
+                        title: i18n.t('project'),
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: 'project/create',
+                    component: ProjectForm,
+                    meta: {
+                        title: i18n.t('new'),
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: 'project/edit/:id',
+                    name: 'project_update',
+                    component: ProjectForm,
+                    meta: {
+                        title: i18n.t('update'),
                         requiresAuth: true
                     }
                 },
