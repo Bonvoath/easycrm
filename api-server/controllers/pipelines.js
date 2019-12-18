@@ -2,10 +2,16 @@ const Response  = require('../utils/response');
 const OpportunityModel = require('../models/opportunity');
 const StageModel = require('../models/stage');
 const TagModel = require('../models/tag');
+const EmployeeModel = require('../models/employee');
+const SaleTeamModel = require('../models/saleTeam');
 
 exports.list = async(req, res, next) => {
     let result = new Response();
-    await OpportunityModel.find({}).populate('stage_id').sort({ sort: 1 }).then((docs) => {
+    await OpportunityModel.find({})
+        .populate('stage_id')
+        .populate('employee_id')
+        .populate('saleteam_id')
+        .sort({ sort: 1 }).then((docs) => {
         result.success(docs);
     }).catch((err) => {
         result.addDetail(err);
@@ -85,7 +91,9 @@ exports.list_default = async(req, res, next) => {
     let result = new Response();
     try {
         let data = {
-            tags: await TagModel.find({}).sort({ sort: 1})
+            tags: await TagModel.find({}).sort({ sort: 1}),
+            saleteams: await SaleTeamModel.find().sort({ sort: 1}),
+            employees: await EmployeeModel.find().sort({ sort: 1 })
         }
         result.success(data);
     } catch (error) {

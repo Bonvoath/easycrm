@@ -31,6 +31,16 @@ const oppScheme = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Tags'
     },
+    employee_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: 'Employees'
+    },
+    saleteam_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: 'SaleTeams'
+    },
     sort: {
         type: Number,
         required: true,

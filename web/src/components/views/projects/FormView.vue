@@ -68,7 +68,6 @@
                 this.$api().post('project/find', { id: id }).then(res => {
                     if(this.$isValid(res)){
                         this.model = res.data.Data;
-                        this.deadline = this.$format(this.model.deadline, 'YYYY-MM-DD');
                         this.title = this.$t('update') + ' / [' + this.model.name + ']';
                     }
                 });

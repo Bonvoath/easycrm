@@ -31,7 +31,7 @@ exports.update = async(req, res) => {
     let result = new Response();
     let id = req.body._id;
     let fields = req.body.fields;
-    await ProjectModel.updateOne({ _id:id }, fields, { new: true }, (err, doc) => {
+    await SaleTeamModel.updateOne({ _id:id }, fields, { new: true }, (err, doc) => {
         if(err) result.addDetail(err);
         else{
             result.success(doc);
@@ -44,7 +44,7 @@ exports.update = async(req, res) => {
 exports.findOne = async(req, res, next) => {
     let result = new Response();
     try {
-        var opt = await ProjectModel.findOne({ _id: req.body.id});
+        var opt = await SaleTeamModel.findOne({ _id: req.body.id});
         result.success(opt);
     } catch (error) {
         result.addDetail(error);

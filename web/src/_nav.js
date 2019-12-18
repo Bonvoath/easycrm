@@ -11,6 +11,11 @@ export default {
             icon: 'fa fa-user-circle-o'
         },
         {
+            name: 'Sale Teams',
+            url: '/saleteam',
+            icon: 'fa fa-user-circle-o'
+        },
+        {
             name: 'Stage',
             url: '/stage',
             icon: 'fa fa-recycle'

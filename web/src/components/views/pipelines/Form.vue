@@ -73,13 +73,19 @@
                             <div class="form-group">
                                 <label for="" class="label-control kh">Saleperson</label>
                                 <div>
-                                    <select type="text" class="form-control form-control-sm"></select>
+                                    <select type="text" class="form-control form-control-sm" v-model="model.employee_id">
+                                        <option value="">Select</option>
+                                        <option v-for="ret in reps" :key="ret._id" :value="ret._id">{{ret.latin_name}}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="label-control kh">Sale Team</label>
                                 <div>
-                                    <select type="text" class="form-control form-control-sm"></select>
+                                    <select type="text" class="form-control form-control-sm" v-model="model.saleteam_id">
+                                        <option value="">Select</option>
+                                        <option v-for="ret in teams" :key="ret._id" :value="ret._id">{{ret.name}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -152,6 +158,8 @@
             this.$api().post('pipeline/listDefault').then(res => {
                 if(this.$isValid(res)){
                     this.tags = res.data.Data.tags;
+                    this.teams = res.data.Data.saleteams;
+                    this.reps = res.data.Data.employees;
                 }
             });
 
@@ -178,6 +186,8 @@
                             email: this.model.email,
                             company: this.model.company,
                             tag_id: this.model.tag_id,
+                            employee_id: this.model.employee_id,
+                            saleteam_id: this.model.saleteam_id,
                             updated_by: this.$user()
                         }
                     };

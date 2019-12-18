@@ -22,6 +22,8 @@ const TagList = () => import('../components/views/settings/TagList');
 const ActivityTypeList = () => import('../components/views/settings/ActivityType');
 const ProjectList = () => import('../components/views/projects/ListView');
 const ProjectForm = () => import('../components/views/projects/FormView');
+const SaleTeamList = () => import('../components/views/saleTeams/ListView');
+const SaleTeamForm = () => import('../components/views/saleTeams/FormView');
 function configRoutes() {
     return [
         {
@@ -210,6 +212,31 @@ function configRoutes() {
                         title: i18n.t('activity_type'),
                         requiresAuth: true
                     }
+                },
+                {
+                    path: 'saleteam',
+                    component: SaleTeamList,
+                    meta: {
+                        title: i18n.t('new'),
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: 'saleteam/create',
+                    component: SaleTeamForm,
+                    meta: {
+                        title: i18n.t('new'),
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: 'saleteam/edit/:id',
+                    name: 'saleteam_update',
+                    component: SaleTeamForm,
+                    meta: {
+                        title: i18n.t('update'),
+                        requiresAuth: true
+                    }
                 }
             ]
         },
@@ -239,7 +266,7 @@ router.beforeEach((to, from, next) => {
             next('/login');
         } else {
             var expire = CryptoJS.AES.decrypt(sessionStorage.getItem('jwt@exp'),'jwtaccess').toString(CryptoJS.enc.Utf8);
-            if(expire == null || (expire != null && moment(expire).valueOf() < moment().valueOf())){
+            if(expire == null || (expire != null && expire < Math.round(moment().valueOf() / 1000))){
                 next('/login');
             }else{
                 next();
