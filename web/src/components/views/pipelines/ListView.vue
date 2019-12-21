@@ -26,8 +26,8 @@
                     <td>{{ret.phone}}</td>
                     <td>{{ret.customer}}</td>
                     <td>{{ret.company}}</td>
-                    <td>{{ret.employee_id.latin_name}}</td>
-                    <td>{{ret.saleteam_id.name}}</td>
+                    <td>{{ret.employee_id!=null?ret.employee_id.latin_name:''}}</td>
+                    <td>{{ret.saleteam_id!=null?ret.saleteam_id.name:''}}</td>
                     <td class="text-right">{{ret.stage_id.name}}</td>
                 </tr>
             </tbody>

@@ -68,6 +68,7 @@ router.post('/lead/list', leadController.list);
 router.post('/lead/save', leadController.save);
 router.post('/lead/update', leadController.update);
 router.post('/lead/find', leadController.findOne);
+router.post('/lead/convert', leadController.toOpportunity);
 
 router.post('/task/default', taskController.list_default);
 router.post('/task/list', taskController.list);

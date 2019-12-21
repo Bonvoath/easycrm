@@ -17,7 +17,7 @@ const leadScheme = new mongoose.Schema({
     country: String,
     contact_name: String,
     job_position: String,
-    priority: String,
+    priority: Number,
     sale_per_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,
@@ -28,6 +28,26 @@ const leadScheme = new mongoose.Schema({
         required: false,
         ref: 'SaleTeams'
     },
+    date_losed: {
+        type: Date,
+        required: false,
+    },
+    lose_by_id: {
+        type: String,
+        required: false
+    },
+    date_restored: {
+        type: Date,
+        required: false
+    },
+    restore_by_id: {
+        type: String,
+        required: false
+    },
+    status: {
+        type: Number,
+        default: 1
+    },
     sort: {
         type: Number,
         required: true,
@@ -35,7 +55,7 @@ const leadScheme = new mongoose.Schema({
     },
     created_at: {
         type: Date,
-        default: Date.now,
+        default: Date.now(),
         required: true
     },
     created_by: {
@@ -44,7 +64,7 @@ const leadScheme = new mongoose.Schema({
     },
     updated_at: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     },
     updated_by: {
         type: String,

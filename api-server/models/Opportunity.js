@@ -41,6 +41,7 @@ const oppScheme = new mongoose.Schema({
         required: false,
         ref: 'SaleTeams'
     },
+    priority: Number,
     sort: {
         type: Number,
         required: true,
@@ -48,7 +49,7 @@ const oppScheme = new mongoose.Schema({
     },
     created_at: {
         type: Date,
-        default: Date.now,
+        default: Date.now(),
         required: true
     },
     created_by: {
@@ -57,7 +58,7 @@ const oppScheme = new mongoose.Schema({
     },
     updated_at: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     },
     updated_by: {
         type: String,

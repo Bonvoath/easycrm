@@ -23,16 +23,10 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div>Tag: {{item.tag_id.name}}</div>
+                                    <div>Tag: {{item.tag_id!=null?item.tag_id.name:''}}</div>
                                     <div>Revenue: ${{$money(item.expected_revenue)}}</div>
                                     <div class="footer">
-                                        <div class="star">
-                                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        </div>
+                                        <StarRating :star-size="20" :rounded-corners="true" :show-rating="false" v-model.number="item.priority"></StarRating>
                                         <div>
                                             <img src="/img/avatars/2.jpg" class="rounded" style="width: 25px; height: 25px;"/>
                                         </div>
@@ -48,9 +42,11 @@
 </template>
 <script>
     import draggable from 'vuedraggable'
+    import StarRating from 'vue-star-rating'
     export default {
         components:{
-            draggable
+            draggable,
+            StarRating
         },
         data(){
             return {

@@ -99,7 +99,7 @@
                             <div class="form-group">
                                 <label class="label-control kh">Priority</label>
                                 <div>
-                                    <input type="text" class="form-control form-control-sm">
+                                    <StarRating :star-size="20" :rounded-corners="true" :show-rating="false" v-model.number="model.priority"></StarRating>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -137,9 +137,11 @@
 </template>
 <script>
     import LeadActivity from '../leads/LeadActivity';
+    import StarRating from 'vue-star-rating'
     export default {
         components: {
-            LeadActivity
+            LeadActivity,
+            StarRating
         },
         data(){
             return {
@@ -188,6 +190,7 @@
                             tag_id: this.model.tag_id,
                             employee_id: this.model.employee_id,
                             saleteam_id: this.model.saleteam_id,
+                            priority: this.model.priority,
                             updated_by: this.$user()
                         }
                     };
