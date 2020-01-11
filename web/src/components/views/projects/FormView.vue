@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label for="" class="label-control kh">Description</label>
                             <div>
-                                <textarea class="form-control form-control-sm" v-model="model.description"></textarea>
+                                <VueEditor v-model="model.description"></VueEditor>
                             </div>
                         </div>
                 </div>
@@ -44,7 +44,11 @@
     </div>
 </template>
 <script>
+    import { VueEditor } from "vue2-editor";
     export default {
+        components:{
+            VueEditor
+        },
         data(){
             return {
                 title: this.$t('new'),

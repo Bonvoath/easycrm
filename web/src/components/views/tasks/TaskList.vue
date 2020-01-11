@@ -34,12 +34,13 @@
                                 <th>Progress</th>
                                 <th>Stage</th>
                                 <th>Customer</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="ret in list" :key="ret._id">
                                 <td><input type="checkbox"/></td>
-                                <td><router-link :to="{ name: 'task_update', params: { id: ret._id }}">{{ret.name}}</router-link></td>
+                                <td><router-link :to="{ name: 'task_view', params: { id: ret._id }}">{{ret.name}}</router-link></td>
                                 <td>{{ret.project_id!=null?ret.project_id.name:''}}</td>
                                 <td>{{ret.employee_id.khmer_name}}</td>
                                 <td>{{ret.planned_hours}}</td>
@@ -48,6 +49,10 @@
                                 <td></td>
                                 <td></td>
                                 <td>{{ret.customer_id!=undefined?ret.customer_id.name:''}}</td>
+                                <td class="text-right">
+                                    <router-link :to="{ name: 'task_view', params: { id: ret._id }}" class="btn btn-outline-success btn-xs"><i class="fa fa-eye" aria-hidden="true"></i></router-link> &nbsp;
+                                    <router-link :to="{ name: 'task_update', params: { id: ret._id }}" class="btn btn-outline-danger btn-xs"><i class="fa fa-pencil" aria-hidden="true"></i></router-link>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -60,9 +65,7 @@
     export default {
         data(){
             return {
-                query: {
-
-                },
+                query: {},
                 list: []
             }
         },

@@ -10,6 +10,7 @@
             <div class="card card-form">
                 <div class="card-header">
                     <div class="toolbar">
+                        <router-link to="/task" class="btn btn-outline-secondary btn-sm"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> {{$t('back')}}</router-link>
                         <button type="button" class="btn btn-outline-secondary btn-sm" @click="onSaveClick"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{$t('save')}}</button>
                     </div>
                 </div>
@@ -91,11 +92,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-lg-6">
+                        <div class="col-sm-12 col-lg-12">
                             <div class="form-group">
                                 <label class="label-control kh">Description</label>
                                 <div>
-                                    <textarea class="form-control form-control-sm" v-model="model.description"></textarea>
+                                    <VueEditor v-model="model.description"></VueEditor>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +107,11 @@
     </div>
 </template>
 <script>
+    import { VueEditor } from "vue2-editor";
     export default {
+        components:{
+            VueEditor
+        },
         data(){
             return {
                 title: this.$t('new'),
@@ -122,7 +127,10 @@
                 customers: [],
                 projects: [],
                 isUpdate: false,
-                deadline: this.$now().format('YYYY-MM-DD')
+                deadline: this.$now().format('YYYY-MM-DD'),
+                customToolbar: [
+                                [{'header': [2, 3, 4, 5, 6, false]}],
+                                ["bold", "italic", "underline"], [{ list: "ordered" }, { list: "bullet" }], ["image", "code-block"]]
             }
         },
         created(){

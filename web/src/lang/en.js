@@ -1,7 +1,9 @@
 export default {
     activity_type: 'Activity Types',
+    back: 'Back',
     contact: 'Contacts',
     create: 'New',
+    edit: 'Edit',
     employee: 'Employee',
     update: 'Update',
     email: 'Email',
@@ -14,6 +16,7 @@ export default {
     user_name: 'Username',
     password: 'Password',
     pipeline: 'Pipelines',
+    remove: 'Remove',
     sign_in: 'Sign In',
     stage: 'Stages',
     sale_team: 'Sale Teams',

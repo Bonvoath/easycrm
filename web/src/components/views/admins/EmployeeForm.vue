@@ -339,7 +339,9 @@
                 let loading = this.$loading.show();
                 this.$api().post('employee/default').then(res=>{
                     if(this.$isValid(res)){
-                        //let data = res.data.Data;
+                        let data = res.data.Data;
+                        this.religions = data.religions;
+                        this.nationals = data.nationals;
                     }
                 }).catch(error => {
                     this.$toasted.show(error);

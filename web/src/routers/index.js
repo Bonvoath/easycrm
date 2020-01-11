@@ -13,6 +13,7 @@ const LeadList = () => import('../components/views/leads/LeadList');
 const LeadForm = () => import('../components/views/leads/LeadForm');
 const TaskList = () => import('../components/views/tasks/TaskList');
 const TaskForm = () => import('../components/views/tasks/TaskForm');
+const TaskPreview = () => import('../components/views/tasks/TaskPreview');
 const ActivityList = () => import('../components/views/activities/ActivityList');
 const ContactList = () => import('../components/views/contacts/ContactList');
 const ContactForm = () => import('../components/views/contacts/ContactForm');
@@ -22,6 +23,7 @@ const TagList = () => import('../components/views/settings/TagList');
 const ActivityTypeList = () => import('../components/views/settings/ActivityType');
 const ProjectList = () => import('../components/views/projects/ListView');
 const ProjectForm = () => import('../components/views/projects/FormView');
+const ProjectTask = () => import('../components/views/projects/ProjectTask');
 const SaleTeamList = () => import('../components/views/saleTeams/ListView');
 const SaleTeamForm = () => import('../components/views/saleTeams/FormView');
 function configRoutes() {
@@ -86,6 +88,15 @@ function configRoutes() {
                     component: TaskForm,
                     meta: {
                         title: i18n.t('update'),
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: 'task/view/:id',
+                    name: 'task_view',
+                    component: TaskPreview,
+                    meta: {
+                        title: i18n.t('detail'),
                         requiresAuth: true
                     }
                 },
@@ -186,6 +197,15 @@ function configRoutes() {
                     component: ProjectForm,
                     meta: {
                         title: i18n.t('update'),
+                        requiresAuth: true
+                    }
+                },
+                {
+                    path: 'project/task/:id',
+                    name: 'project_task',
+                    component: ProjectTask,
+                    meta: {
+                        title: i18n.t('task'),
                         requiresAuth: true
                     }
                 },

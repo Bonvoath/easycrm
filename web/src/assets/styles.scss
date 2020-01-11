@@ -113,13 +113,18 @@ button:focus{
 .card-form .card-header{
     border-radius: 0;
     background: #fff;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 .toolbar .btn{
     box-shadow: none !important;
     border-color: #ddd;
     margin-right: 5px;
+}
+.btn-xs{
+    margin-bottom: 0;
+    padding: 0 5px;
+    height: 24px;
+    outline: none !important;
+    box-shadow: none !important;
 }
 .table{
     font-size: 13px;
@@ -154,4 +159,35 @@ button:focus{
 
 .x-modal{
     background: rgba(0, 0, 0, 0.3);
+}
+
+/*editor*/
+.ql-editor{
+    font-size: 14px !important;
+}
+.quillWrapper .ql-snow.ql-toolbar{
+    padding-top: 4px;
+}
+.ql-snow .ql-toolbar button svg,
+.ql-picker.ql-color-picker svg,
+.quillWrapper .ql-snow.ql-toolbar button svg{
+    width: 18px !important;
+    height: 18px !important;
+}
+.quillWrapper .ql-snow.ql-toolbar .ql-formats{
+    margin-bottom: 0 !important;;
+}
+.ql-picker:not(.ql-background){
+    top: 0 !important;
+}
+.ql-snow .ql-color-picker .ql-picker-label,
+.ql-snow .ql-icon-picker .ql-picker-label{
+    padding: 0 !important;
+}
+.ql-toolbar.ql-snow .ql-picker-label,
+.ql-snow .ql-picker-options .ql-picker-item{
+    outline: none !important;
+}
+.html p{
+    margin-bottom: 3px;
 }

@@ -24,18 +24,18 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th><input type="checkbox"/></th>
+                                <th><input type="checkbox" @change="checkall"/></th>
                                 <th>Project Name</th>
                                 <th>Description</th>
-                                <th>Sort</th>
+                                <th>Tasks</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="ret in list" :key="ret._id">
-                                <td style="width: 50px;"><input type="checkbox"/></td>
+                                <td style="width: 50px;"><input type="checkbox" v-model="ret.checked"/></td>
                                 <td><router-link :to="{ name: 'project_update', params: { id: ret._id }}">{{ret.name}}</router-link></td>
-                                <td>{{ret.description}}</td>
-                                <td>{{ret.sort}}</td>
+                                <td class="html" v-html="ret.description"></td>
+                                <td><router-link :to="{ name: 'project_task', params: { id: ret._id }}">{{ret.tasks}} Tasks</router-link></td>
                             </tr>
                         </tbody>
                     </table>
@@ -62,6 +62,11 @@
                         this.list = res.data.Data;
                     }
                 }).finally(function(){ loading.hide(); });
+            },
+            checkall(e){
+                this.list.map(function(item){
+                    item.checked = e.target.checked;
+                });
             }
         }
     }
