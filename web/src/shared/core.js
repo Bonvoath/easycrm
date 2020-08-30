@@ -31,7 +31,7 @@ export default {
                 token = CryptoJS.AES.decrypt(sessionStorage.getItem('jwt'),'jwtaccess').toString(CryptoJS.enc.Utf8);
             }
             return axios.create({
-                baseURL: 'http://node.khmerlearner.xyz/api/',
+                baseURL: 'https://node.khmerlearner.xyz/api/',
                 headers: { Authorization: 'Bearer ' +  token}
             });
         }
